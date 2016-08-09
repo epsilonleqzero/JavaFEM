@@ -15,6 +15,8 @@ import javax.faces.context.FacesContext;
 import net.tedkwan.javafem.fem.FEM;
 import net.tedkwan.javafem.fem.mtxFun;
 import net.tedkwan.javafem.fem.mtxFunBd;
+import net.tedkwan.javafemjni.TwoDimPhase;
+//import net.tedkwan.;
 import org.jblas.DoubleMatrix;
 import org.jblas.MatrixFunctions;
 import org.primefaces.context.RequestContext;
@@ -35,18 +37,67 @@ public class femSessionBean implements Serializable {
     private DoubleMatrix u;
     private DoubleMatrix x;
     private DoubleMatrix y;
+    private DoubleMatrix upp;
     private String xar="";
     private String yar="";
     private String uar="";
+    private String xarpp="";
+    private String yarpp="";
+    private String uarpp="";
     private double h=0.125;
+    private double hpp=0.05;
     /**
      * Creates a new instance of femSessionBean
      */
     public femSessionBean() {
         calculateFEM();
+        makeDuffing();
     }
     
-    public void calculateFEM(){
+    private void makeDuffing(){
+        //System.out.println(System.getProperty("java.library.path"));
+        TwoDimPhase phase=new TwoDimPhase();
+        double[] initc = {0.05, 0.1, 1, 0.3,-1.0,30.0,0.3,0.6};
+        double[] res = phase.rk4(initc,"duffing");
+        int r = res.length / 3;
+        System.out.println(res.length);
+        DoubleMatrix outmtx = new DoubleMatrix(r, 3, res);
+        DoubleMatrix xpp = outmtx.getColumn(0);
+        DoubleMatrix ypp = outmtx.getColumn(1);
+        xarpp=convertMatrix((xpp));
+        yarpp=convertMatrix((ypp));
+        System.out.println("Done.");
+    }
+    
+    private void makeLorenz(){
+        System.out.println(System.getProperty("java.library.path"));
+        //DuffingOscil duff = new DuffingOscil();
+        TwoDimPhase phase=new TwoDimPhase();
+        double[] initc = {0.1, 0.1, 1, 0.3,-1.0,30.0,0.3,0.6};
+        double[] res = phase.rk4(initc,"lorenz");
+        int r = res.length / 4;
+        System.out.println(res.length);
+        DoubleMatrix outmtx = new DoubleMatrix(r, 4, res);
+        DoubleMatrix xpp = outmtx.getColumn(0);
+        DoubleMatrix ypp = outmtx.getColumn(1);
+        upp = outmtx.getColumn(2);
+        xarpp=convertMatrix((xpp));
+        yarpp=convertMatrix((ypp));
+        uarpp=convertMatrix(upp);
+        
+    }
+    
+    public void showPP() {
+        Map<String,Object> options = new HashMap<>();
+        options.put("resizable", true);
+        options.put("draggable", true);
+        options.put("modal", true);
+        makeDuffing();
+        RequestContext context=RequestContext.getCurrentInstance();
+        context.openDialog("showPP", options, null);
+    }
+    
+    private void calculateFEM(){
         mtxFun f=new mtxFun();
         mtxFunBd g=new mtxFunBd();
         long startt=System.nanoTime();
@@ -62,6 +113,7 @@ public class femSessionBean implements Serializable {
         xar=convertMatrix(MatrixFunctions.abs(x));
         yar=convertMatrix(MatrixFunctions.abs(y));
         uar=convertMatrix(u);
+        
     }
     
     private String convertMatrix(DoubleMatrix conv){
@@ -90,6 +142,47 @@ public class femSessionBean implements Serializable {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Plot Closed", "You have closed the plot");
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
+
+    public DoubleMatrix getUpp() {
+        return upp;
+    }
+
+    public void setUpp(DoubleMatrix upp) {
+        this.upp = upp;
+    }
+
+    public String getXarpp() {
+        return xarpp;
+    }
+
+    public void setXarpp(String xarpp) {
+        this.xarpp = xarpp;
+    }
+
+    public String getYarpp() {
+        return yarpp;
+    }
+
+    public void setYarpp(String yarpp) {
+        this.yarpp = yarpp;
+    }
+
+    public String getUarpp() {
+        return uarpp;
+    }
+
+    public void setUarpp(String uarpp) {
+        this.uarpp = uarpp;
+    }
+
+    public double getHpp() {
+        return hpp;
+    }
+
+    public void setHpp(double hpp) {
+        this.hpp = hpp;
+    }
+    
 
     public double getX1() {
         return x1;

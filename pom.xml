@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>net.tedkwan</groupId>
+    <parent>
+        <groupId>net.tedkwan</groupId>
+        <artifactId>MavenCPPnar</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <artifactId>JavaFEM</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-
     <name>JavaFEM</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    
+    <!--    <repositories>
+        <repository>
+            <id>prime-repo</id>
+            <name>PrimeFaces Maven Repository</name>
+            <url>http://repository.primefaces.org</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>-->
     <dependencies>
         <dependency>
             <groupId>org.primefaces</groupId>
@@ -21,9 +30,9 @@
             <version>5.0</version>
         </dependency>
         <dependency>  
-            <groupId>org.primefaces.themes</groupId>  
+            <groupId>org.primefaces.extensions</groupId>  
             <artifactId>all-themes</artifactId>  
-            <version>1.0.10</version>  
+            <version>1.0.8</version>  
         </dependency>  
         <dependency>
             <groupId>org.jblas</groupId>
@@ -48,7 +57,12 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-<!--        <dependency>
+        <dependency>
+            <groupId>net.tedkwan</groupId>
+            <artifactId>JavaFEMjni</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!--        <dependency>
             <groupId>com.googlecode.matrix-toolkits-java</groupId>
             <artifactId>mtj</artifactId>
             <version>1.0.2</version>
@@ -75,6 +89,8 @@
                 <version>2.3</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <attachClasses>true</attachClasses>
+                <classesClassifier>classes</classesClassifier>
                 </configuration>
             </plugin>
             <plugin>
@@ -102,14 +118,20 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>com.github.maven-nar</groupId>
+                <artifactId>nar-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <extensions>true</extensions>
+            </plugin>
         </plugins>
     </build>
-    <repositories>
+    <!--    <repositories>
         <repository>
             <url>http://repository.primefaces.org/</url>
             <id>PrimeFaces-maven-lib</id>
             <layout>default</layout>
             <name>Repository for library PrimeFaces-maven-lib</name>
         </repository>
-    </repositories>
+    </repositories>-->
 </project>

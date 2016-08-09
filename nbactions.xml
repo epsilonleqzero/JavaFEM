@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>profile</actionName>
+            <packagings>
+                <packaging>ejb</packaging>
+                <packaging>ear</packaging>
+                <packaging>war</packaging>
+            </packagings>
+            <goals>
+                <goal>package</goal>
+            </goals>
+            <properties>
+                <netbeans.deploy>true</netbeans.deploy>
+                <netbeans.deploy.profilemode>true</netbeans.deploy.profilemode>
+            </properties>
+            <activatedProfiles>
+                <activatedProfile>cygwin</activatedProfile>
+            </activatedProfiles>
+        </action>
+    </actions>

@@ -844,7 +844,7 @@
 	{
 		position: relative;
 		padding: 12em 0em;
-		background: url(images/Long_Beach_Skyline.jpg) no-repeat center;
+		background: url('JavaFEM/javax.faces.resource/images/Long_Beach_Skyline.jpg') no-repeat center;
 		background-size: cover;
 		color: #fff;
 	}
