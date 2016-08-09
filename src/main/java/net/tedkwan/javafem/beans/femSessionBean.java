@@ -16,7 +16,6 @@ import net.tedkwan.javafem.fem.FEM;
 import net.tedkwan.javafem.fem.mtxFun;
 import net.tedkwan.javafem.fem.mtxFunBd;
 import net.tedkwan.javafemjni.TwoDimPhase;
-//import net.tedkwan.;
 import org.jblas.DoubleMatrix;
 import org.jblas.MatrixFunctions;
 import org.primefaces.context.RequestContext;
@@ -54,6 +53,11 @@ public class femSessionBean implements Serializable {
         makeDuffing();
     }
     
+    
+    /**
+     * Make a 2 dim phase plane
+     * 
+     */
     private void makeDuffing(){
         //System.out.println(System.getProperty("java.library.path"));
         TwoDimPhase phase=new TwoDimPhase();
@@ -116,6 +120,17 @@ public class femSessionBean implements Serializable {
         
     }
     
+    /**
+     * ConverMatrix function.
+     * 
+     * This function creates a string JSON representation of 
+     * a DoubleMatrix. It ensures that the output string is 
+     * able to be read by plotly in javascript.
+     * 
+     * 
+     * @param conv String to convert.
+     * @return String representation of DoubleMatrix in JSON array.
+     */
     private String convertMatrix(DoubleMatrix conv){
         StringBuilder sb=new StringBuilder();
         sb.append("[");
@@ -138,6 +153,12 @@ public class femSessionBean implements Serializable {
         RequestContext context=RequestContext.getCurrentInstance();
         context.openDialog("showPlot", options, null);
     }
+    /**
+     * onClose function.
+     * 
+     * Closes the plot dialog window after viewing the file.
+     * 
+     */
     public void onClose(){
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Plot Closed", "You have closed the plot");
         FacesContext.getCurrentInstance().addMessage(null, message);

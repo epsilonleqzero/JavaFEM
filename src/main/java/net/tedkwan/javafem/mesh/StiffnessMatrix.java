@@ -21,7 +21,16 @@ public class StiffnessMatrix {
     private DoubleMatrix area;
     private DoubleMatrix stiffness;
     
-    
+    /**
+     * Constructor to create stiffness matrix.
+     * 
+     * This constructor creates the stiffness matrix for the mesh to
+     * be used in the finite element method. It also creates an area
+     * vector which is used in the calculation of the right hand side.
+     * 
+     * @param nodes Matrix containing the nodes and values of them.
+     * @param elems Matrix containing the elements.
+     */
     public StiffnessMatrix(DoubleMatrix nodes, DoubleMatrix elems) {
         int N = nodes.rows; int NE = elems.rows;
         HashMap<Integer,DoubleMatrix> ve = new HashMap<>();
@@ -60,7 +69,6 @@ public class StiffnessMatrix {
                 index=index+NE;
             }
         }
-        //System.out.println(ii.rows);
         stiffness=DoubleMatrix.zeros(N, N);
         int [] iiar=ii.toIntArray();
         int [] jjar=jj.toIntArray();
@@ -73,10 +81,6 @@ public class StiffnessMatrix {
             }
             stiffness.put(iiar[i], jjar[i], curr);
         }
-//        long endt=System.nanoTime();
-//        long totalt=endt-startt;
-//        double fullt= (double) totalt / 1000000000.0;
-//        System.out.println("Elapsed time is " + fullt +" seconds");
     }
 
     public DoubleMatrix getArea() {

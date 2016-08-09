@@ -31,6 +31,19 @@ public class FEM {
     private final int N;
     private final int NE;
     
+    /**
+     * FEM function.
+     * 
+     * This constructor runs the FEM subroutine, and calls all of the other portions.
+     * 
+     * @param x1 Lower bound for x.
+     * @param x2 Upper bound for x.
+     * @param y1 Lower bound for y.
+     * @param y2 Upper bound for y.
+     * @param h Mesh size.
+     * @param f Function on left hand side.
+     * @param g Boundary condition.
+     */
     public FEM(double x1,double x2,double y1,double y2,double h,mtxFun f,mtxFunBd g){
         this.f=f;
         mesh=new MeshMtx(x1,x2,y1,y2,h);
@@ -50,16 +63,6 @@ public class FEM {
         long totalt=endt-startt;
         double fullt= (double) totalt / 1000000000.0;
         System.out.println("Elapsed time is " + fullt +" seconds");
-//        LinkedSparseMatrix A1=new LinkedSparseMatrix(new DenseMatrix(Af.toArray2()));
-//        //DenseVector u1f=new DenseVector(Af.rows);
-//        DenseVector b1=new DenseVector(r.toArray());
-//        startt=System.nanoTime();
-//        //DenseVector u1f=A1.solve(u1f,b1);
-//        u.put(fna, Solve.solveSymmetric(Af, r.get(fna)));
-//        endt=System.nanoTime();
-//        totalt=endt-startt;
-//        fullt= (double) totalt / 1000000000.0;
-//        System.out.println("Elapsed time is " + fullt +" seconds");
     }
     
     private void findBoundary(){
@@ -110,6 +113,15 @@ public class FEM {
                             ).asDoubleStream().toArray());
     }
     
+    
+    /**
+     * Calculate the right hand side.
+     * 
+     * This function calculates the right hand side of the FEM equation, then
+     * it returns that as a vector so that x=A\b.
+     * 
+     * @return vector representing b.
+     */
     private DoubleMatrix calcRHS(){
         DoubleMatrix mid1=(nodes.getRows(elems.getColumn(1).toIntArray())
                 .add(nodes.getRows(elems.getColumn(2).toIntArray()))).div(2.0);

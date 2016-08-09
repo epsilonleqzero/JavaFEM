@@ -28,7 +28,10 @@ public class PictureViewer implements Serializable {
     public PictureViewer() {
     }
         private List<String> images;
-     
+    /**
+     * Initializes the picture viewer by loading the pictures
+     * that are going to be displayed.
+     */
     @PostConstruct
     public void init() {
         images = new ArrayList<>();

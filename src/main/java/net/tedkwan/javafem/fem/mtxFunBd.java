@@ -19,10 +19,12 @@ public class mtxFunBd {
         
     }
     
-//    public DoubleMatrix compute(DoubleMatrix x){
-//        DoubleMatrix y=MatrixFunctions.exp(x.rowSums());
-//        return y;
-//    }
+    /**
+     * Boundary Function.
+     * 
+     * @param x Input vector for the boundary.
+     * @return u for the values of u at the boundary.
+     */
     public DoubleMatrix compute(DoubleMatrix x){
         double pi=Math.PI;
         DoubleMatrix y=(MatrixFunctions.sin(x.getColumn(0).mul(pi).mul(2.0)))

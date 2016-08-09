@@ -19,10 +19,14 @@ public class mtxFun {
         
     }
     
-//    public DoubleMatrix compute(DoubleMatrix x){
-//        DoubleMatrix y=MatrixFunctions.exp(x.rowSums());
-//        return y;
-//    }
+    
+    /**
+     * This is the overloaded method which computes the matrix function for the
+     * right hand side.
+     * 
+     * @param x input vector (current location).
+     * @return output vector representing right hand side at x.
+     */
     public DoubleMatrix compute(DoubleMatrix x){
         double pi=Math.PI;
         DoubleMatrix y=(MatrixFunctions.sin(x.getColumn(0).mul(pi).mul(2.0)))
