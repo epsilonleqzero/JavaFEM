@@ -168,7 +168,7 @@ public class Ode2D implements Serializable {
 
     @Override
     public String toString() {
-        return "layout.Ode2D[ id=" + id + " ]";
+        return "net.tedkwan.javafem.entity.Ode2D[ id=" + id + " ]";
     }
     
 }

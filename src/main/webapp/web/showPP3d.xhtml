@@ -25,18 +25,24 @@
                      <h:outputText value="b0b!"/>
                     </h:form>-->
             <!--<h:outputScript library="js" name="common.js"/>-->
-            <div id="myDiv2" style="width:100%;height:400px;"></div>
+            <div id="myDiv3" style="width:100%;height:400px;"></div>
             <script language="JavaScript" type="text/javascript" >
-                TESTER = document.getElementById('myDiv2');
-                        var a = <h:outputText value="#{phase2Bean.xarpp}"/>
-                        var b = <h:outputText value="#{phase2Bean.yarpp}"/>
+                TESTER = document.getElementById('myDiv3');
+                        var a = <h:outputText value="#{phase3Bean.xarppl}"/>
+                        var b = <h:outputText value="#{phase3Bean.yarppl}"/>
+                        var c = <h:outputText value="#{phase3Bean.uarpp}"/>
                         var data = [
                             {
                                 opacity: 0.8,
-                                type: 'scatter',
-				mode: 'lines',
+                                type: 'scatter3d',
+                                mode: 'lines',
                                 x: a,
-                                y: b
+                                y: b,
+                                z: c,
+                                line: {
+                                width: 6,
+                                color: c,
+                                colorscale: "Viridis"},
                             }
                         ];
                 var layout = {
@@ -51,7 +57,7 @@
                         pad: 4
                     }
                 };
-                Plotly.newPlot('myDiv2', data, layout);
+                Plotly.newPlot('myDiv3', data, layout);
             </script>
         </h:body>
     </f:view>

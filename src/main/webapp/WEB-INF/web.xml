@@ -2,7 +2,7 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Deployment</param-value>
+        <param-value>Production</param-value>
     </context-param>
     <context-param>
         <param-name>javax.faces.CONFIG_FILES</param-name>
@@ -31,11 +31,11 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>web/indextemp.xhtml</welcome-file>
+        <welcome-file>web/index.xhtml</welcome-file>
     </welcome-file-list>
     <resource-ref>
-        <res-ref-name>jdbc/JaveFEM</res-ref-name>
-        <res-type>javax.sql.DataSource</res-type>
+        <res-ref-name>jdbc/homesite</res-ref-name>
+        <res-type>javax.sql.ConnectionPoolDataSource</res-type>
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
     </resource-ref>

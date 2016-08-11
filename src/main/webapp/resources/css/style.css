@@ -14,14 +14,15 @@
 
 	body
 	{
-		background: #202020 url(images/img01.jpg) repeat;
+		background: #202020 url("#{resource['images/img01.jpg']}") repeat;
+                
 	}
 
 	body,input,textarea,select
 	{
 		font-family: 'Roboto Condensed', sans-serif;
 		font-weight: 300;
-		font-size: 11pt;
+		font-size: 14pt;
 		line-height: 1.75em;
 	}
 
@@ -844,9 +845,9 @@
 	{
 		position: relative;
 		padding: 12em 0em;
-		background: url('JavaFEM/javax.faces.resource/images/Long_Beach_Skyline.jpg') no-repeat center;
+		background: url("#{resource['images/LongBeachSkyline.jpg']}") no-repeat center;
 		background-size: cover;
-		color: #fff;
+                color: #fff;
 	}
 
 /*********************************************************************************/
@@ -965,7 +966,7 @@
 	
 	.balloon {
 		padding: 1.87em;
-		background: url(images/img08.jpg) repeat left top;
+		background: url("#{resource['images/img08.jpg']}") repeat left top;
 		border-radius: 5px;
 		line-height: 180%;
 		font-size: 1.2em;
