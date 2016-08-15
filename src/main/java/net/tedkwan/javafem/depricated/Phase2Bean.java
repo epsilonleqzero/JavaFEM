@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.tedkwan.javafem.beans;
+package net.tedkwan.javafem.depricated;
 
 import java.util.HashMap;
 import java.util.Map;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import net.tedkwan.javafem.entity.Ode2D;
 import net.tedkwan.javafemjni.TwoDimPhase;
 import org.jblas.DoubleMatrix;
 import org.primefaces.context.RequestContext;
@@ -17,13 +18,13 @@ import org.primefaces.context.RequestContext;
  *
  * @author devils
  */
-@ManagedBean(name = "phase3Bean")
-@RequestScoped
-public class Phase3Bean {
+@ManagedBean(name = "phase2Bean")
+@ViewScoped
+public class Phase2Bean {
     
-    public Phase3Bean(){
-        makeLorenz();
-        System.out.println("Made phase 3");
+    public Phase2Bean(){
+        makeDuffing();
+        System.out.println("made");
     }
 
     private String xarpp = "";
@@ -33,7 +34,7 @@ public class Phase3Bean {
     private String uarpp = "";
 
     private void makeLorenz() {
-        //System.out.println(System.getProperty("java.library.path"));
+        System.out.println(System.getProperty("java.library.path"));
         //DuffingOscil duff = new DuffingOscil();
         TwoDimPhase phase = new TwoDimPhase();
         double[] initc = {0.2, (8.0 / 3.0), 28.0, 10.0, 0.0, 20.0, 1.3, 1.6, 10.6};
@@ -48,25 +49,40 @@ public class Phase3Bean {
         yarppl = convertMatrix((ypp));
         uarpp = convertMatrix(upp);
     }
+    
+    private void makeDuffing(Ode2D odefun) {
+        //System.out.println(System.getProperty("java.library.path"));
+        
+        String odename=odefun.getName();
+        double[] initc;
+        if(odename.contains("uffi")){
+            double [] initcduff= {0.05, odefun.getA().doubleValue(),
+                odefun.getB().doubleValue(),
+                odefun.getC().doubleValue(),odefun.getD().doubleValue()
+                    ,20.0,odefun.getX0().doubleValue(),
+                    odefun.getY0().doubleValue()};
+            initc=initcduff;
+        }else{
+            double [] initcvan= {0.05, odefun.getA().doubleValue(),
+            1.0, 0.3,-1.0,20.0,odefun.getX0().doubleValue(),odefun.getY0().doubleValue()};
+            initc=initcvan;
+        }
+        TwoDimPhase phase = new TwoDimPhase();
+        double[] res = phase.rk4(initc,odename);
+        int r = res.length / 3;
+        //System.out.println(res.length);
+        DoubleMatrix outmtx = new DoubleMatrix(r, 3, res);
+        DoubleMatrix xpp = outmtx.getColumn(0);
+        DoubleMatrix ypp = outmtx.getColumn(1);
+        xarpp = convertMatrix((xpp));
+        yarpp = convertMatrix((ypp));
+        System.out.println("Done.");
+    }
 
     private void makeDuffing() {
-        //System.out.println(System.getProperty("java.library.path"));
         TwoDimPhase phase = new TwoDimPhase();
-//        String odename=odefun.getName();
-        double[] initc = {0.05, 0.8,
-            1.0, 0.3, -1.0, 20.0, 0.7, 0.6};
-//        if(odename.contains("uffi")){
-//            double [] initcduff= {0.05, odefun.getA().doubleValue(),
-//                odefun.getB().doubleValue(),
-//                odefun.getC().doubleValue(),odefun.getD().doubleValue()
-//                    ,20.0,odefun.getX0().doubleValue(),
-//                    odefun.getY0().doubleValue()};
-//            initc=initcduff;
-//        }else{
-//            double [] initcvan= {0.05, odefun.getA().doubleValue(),
-//            1.0, 0.3,-1.0,20.0,odefun.getX0().doubleValue(),odefun.getY0().doubleValue()};
-//            initc=initcvan;
-//        }
+        double[] initc = {0.05, -1.0,
+            0.8, 0.3, 1.0, 10.0, 0.7, 0.6};
         double[] res = phase.rk4(initc, "duffing");
         int r = res.length / 3;
         //System.out.println(res.length);
@@ -77,15 +93,14 @@ public class Phase3Bean {
         yarpp = convertMatrix((ypp));
         System.out.println("Done.");
     }
-    public void showPP3d() {
-        makeLorenz();
+    public void showPP() {
+        //makeDuffing();
         Map<String,Object> options = new HashMap<>();
         options.put("resizable", true);
         options.put("draggable", true);
         options.put("modal", true);
-        //makeDuffing(odefun);
         RequestContext context=RequestContext.getCurrentInstance();
-        context.openDialog("showPP3d", options, null);
+        context.openDialog("showPP", options, null);
     }
 
     /**
@@ -130,6 +145,5 @@ public class Phase3Bean {
     public String getUarpp() {
         return uarpp;
     }
-    
     
 }

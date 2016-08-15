@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:composition template="/WEB-INF/templates/masterTemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:m="http://www.w3.org/1998/Math/MathML">
+
+    <ui:define name="title">Ted Kwan</ui:define>
+
+    <ui:define name="content">
+        <header>
+            <h2>Finite Element Method</h2>
+            <span class="byline">Written and developed by Ted Kwan</span>
+        </header>
+        <p>Please select a function from the table below to solve, then click refresh to run the finite element method and plot the numerical solution</p>
+        <p:commandButton id="refreshImageButton" value="Refresh Plot" action="#{femSelectionBean.calculateFEM()}" update="thePlot">
+        </p:commandButton>
+        <p:panel id="thePlot">
+            <script language="JavaScript" type="text/javascript">
+                TESTER = document.getElementById('thePlot');
+                        var a = <h:outputText value="#{femSelectionBean.xarpp}"/>
+                        var b = <h:outputText value="#{femSelectionBean.yarpp}"/>
+                        var c = <h:outputText value="#{femSelectionBean.uarpp}"/>
+                        var data = [
+                            {
+                                opacity: 0.9,
+                                intensity: c,
+                                colorscale: [
+                                    [0, 'rgb(255, 0, 255)'],
+                                    [0.5, 'rgb(0, 255, 0)'],
+                                    [1, 'rgb(0, 0, 255)']
+                                ],
+                                type: 'mesh3d',
+                                x: a,
+                                y: b,
+                                z: c
+                            }
+                        ];
+                var layout = {
+                    autosize: false,
+                    width: 850,
+                    height: 500,
+                    margin: {
+                        l: 50,
+                        r: 50,
+                        b: 100,
+                        t: 100,
+                        pad: 4
+                    }
+                };
+                Plotly.newPlot('thePlot', data, layout);
+            </script>
+        </p:panel>
+        <h:form>
+            <p:panel header="Selection">
+                <p:dataTable id="plotData" value="#{femSelectionBean.pdelist}" selectionMode="single" selection="#{femSelectionBean.pdefun}" var="item" rowKey="#{item.name}">
+                    <f:facet name="header">
+                        Different PDEs
+                    </f:facet>
+                    <p:column headerText="Name" width="10%">
+                        <h:outputText value="#{item.name}"/>
+                    </p:column>
+                    <p:column headerText="x lower bound" width="10%">
+                        <h:outputText value="#{item.x0}"/>
+                    </p:column>
+                    <p:column headerText="x uppper bound" width="10%">
+                        <h:outputText value="#{item.x1}"/>
+                    </p:column>
+                    <p:column headerText="y  lower bound" width="10%">
+                        <h:outputText value="#{item.y0}"/>
+                    </p:column>
+                    <p:column headerText="y uppper bound" width="10%">
+                        <h:outputText value="#{item.y1}"/>
+                    </p:column>
+                    <p:column headerText="h" width="10%">
+                        <h:outputText value="#{item.h}"/>
+                    </p:column>
+                    <p:column headerText="Equation:">
+                        <div align="left"> <h:outputText value="#{item.equation}" escape="false"/> </div>
+                    </p:column>
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

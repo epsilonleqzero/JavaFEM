@@ -15,23 +15,27 @@
             <style>
                 @import url(https://fonts.googleapis.com/css?family=Roboto+Condensed);
             </style>
-            <script type="text/x-mathjax-config">
-                MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-            </script>
-            <script type="text/javascript"
-                    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
-            </script>
-            <script type="text/javascript" src="http://www.google.com/jsapi"></script>
-            <h:outputScript library="js" name="graph.js"/>
-            <h:outputScript library="js" name="graph3d.js"/>
-            <!--<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:700italic,400,300,700' rel='stylesheet' type='text/css'>-->
+
             <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-            <!--            <h:outputScript library="js" name="skel.min.js"/>
-                        <h:outputScript library="js" name="skel-panels.min.js"/>
-                        <h:outputScript library="js" name="init.js"/>-->
             <h:outputStylesheet library="css" name="skel-noscript.css" />
             <h:outputStylesheet library="css" name="style.css" />
             <h:outputStylesheet library="css" name="style-desktop.css" />
+                        <script>
+                (function () {
+                    var head = document.getElementsByTagName("head")[0], script;
+                    script = document.createElement("script");
+                    script.type = "text/x-mathjax-config";
+                    script[(window.opera ? "innerHTML" : "text")] =
+                            "MathJax.Hub.Config({\n" +
+                            "  tex2jax: { inlineMath: [['$','$'], ['\\\\(','\\\\)']] }\n" +
+                            "});";
+                    head.appendChild(script);
+                    script = document.createElement("script");
+                    script.type = "text/javascript";
+                    script.src = "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+                    head.appendChild(script);
+                })();
+            </script>
         </h:head>
         <body>
             <div id="header">
@@ -39,7 +43,7 @@
 
                     <!-- Logo -->
                     <div id="logo">
-                        <h1><a href="#">Welcome friend</a></h1>
+                        <h1><a href="#">Numerical Showcase</a></h1>
                     </div>
 
                     <!-- Nav -->
@@ -75,10 +79,9 @@
                                 <h2>Features</h2>
                             </header>
                             <ul class="style1">
-                                <li><a href="#">Finite Element Script</a></li>
-                                <li><h:outputLink value="/JavaFEM/web/phase-plot-twod.xhtml">Phase Portraits</h:outputLink></li>
-                                <li><a href="#">Link 3</a></li>
-                                <li><a href="#">Link 4</a></li>
+                                <li><h:outputLink value="/JavaFEM/web/fem-plot.xhtml">Finite Element Method</h:outputLink></li>
+                                <li><h:outputLink value="/JavaFEM/web/phase-plot-twod.xhtml">Phase Portraits 2D</h:outputLink></li>
+                                <li><h:outputLink value="/JavaFEM/web/phase-plot-threed.xhtml">Phase Portraits 3D</h:outputLink></li>
                             </ul>
                         </section>
                         <section class="sidebar">
@@ -110,32 +113,32 @@
         <div id="featured">
             <div class="container">
                 <div class="row">
-                    <section class="4u">
+<!--                    <section class="4u">
                         <div class="box">
-                            <!--<a href="#" class="image left"><img src="images/pics04.jpg" alt=""></a>-->
+                            <a href="#" class="image left"><img src="images/pics04.jpg" alt=""></a>
                             <h3>Generate a plot.</h3>
                             <p>Run the Finite Element Method by clicking below. The method is run on the equation:</p>
                             <p:ajaxStatus>
                                 <h:form>
-                                    <p:commandButton value="Show Plot" icon="ui-icon-extlink" actionListener="#{femSessionBean.showPlot()}">
+                                    <p:commandButton value="Show Plot" icon="ui-icon-extlink" actionListener="{femSessionBean.showPlot()}">
                                     </p:commandButton>
                                 </h:form>
                             </p:ajaxStatus>
                         </div>
-                    </section>
-                    <section class="4u">
+                    </section>-->
+<!--                    <section class="4u">
                         <div class="box">
-                            <!--<a href="#" class="image left"><img src="images/pics05.jpg" alt=""></a>-->
+                            <a href="#" class="image left"><img src="images/pics05.jpg" alt=""></a>
                             <h3>Plot a strange attractor</h3>
                             <p>Click below to numerically solve the Lorenz equations.</p>
                             <p:ajaxStatus>
                                 <h:form>
-                                    <p:commandButton value="Show Attractor" icon="ui-icon-extlink" actionListener="#{phase3Bean.showPP3d()}">
+                                    <p:commandButton value="Show Attractor" icon="ui-icon-extlink" actionListener="{phase3Bean.showPP3d()}">
                                     </p:commandButton>
                                 </h:form>
                             </p:ajaxStatus>
                         </div>
-                    </section>
+                    </section>-->
 <!--                    <section class="4u">
                         <div class="box">
                             <a href="#" class="image left"><img src="images/pics06.jpg" alt=""></a>
@@ -192,7 +195,7 @@
                     <div class="3u">
                         <section>
                             <h2>Pictue Gallery</h2>
-                            <p>Here are some pictures of my graduation.</p>
+                            <p>Not yet implemented</p>
                             <ul class="style5">
                                 <!--                                    <li><p:graphicImage library="images" name="Ted_Grad_Pose.jpg" /></li>-->
                                 <!--                                    <li><a href="#"><img src="images/pics07.jpg" alt=""></a></li>
@@ -207,10 +210,11 @@
                     </div>
                     <div class="3u">
                         <section>
-                            <h2>A poem</h2>
-                            <p><strong>The Title.</strong></p>
-                            <p>First Paragraph.</p>
-                            <p>Second Paragraph.</p>
+                            <h2>Nonlinearity</h2>
+                            <p><strong>Why is nonlinearity important?</strong></p>
+                            <p>Why are nonlinear systems so much harder to analyze than linear ones? The essential difference is that linear systems can be broken down into parts. Then each part can be solved separately and finally recombined to get the answer. This idea allows a fantastic simplification of complex problems.</p>
+                            <p>But many things in nature don't act this way. Whenever parts of a system interfere, or cooperate, or compete, there are nonlinear interactions going on. Most of everyday life is nonlinear, and the principle of superposition fails spectacularly. If you listen to your two favorite songs at the same time, you won't get double the pleasure! </p>
+                            <p>From Steven Strogatz Nonlinear Dynamics and Chaos.</p>
                             <a href="#" class="button">More Collections</a>
                         </section>
                     </div>

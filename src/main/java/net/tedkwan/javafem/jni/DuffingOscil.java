@@ -1,14 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package net.tedkwan.javafem.jni;
 
 /**
+ * 
+ * @deprecated This package was replaced by a separate library to keep thread
+ * safety.
  *
- * @author devils
+ * @author Ted Kwan 
+ * 
  */
+@Deprecated
 public class DuffingOscil {
     
     static {
@@ -25,8 +25,8 @@ public class DuffingOscil {
      * y0 - index 4.
      * 
      * 
-     * @param pars
-     * @return 
+     * @param pars input array.
+     * @return double array with all values.
      */
     public native double[] rk4(double[] pars);
     

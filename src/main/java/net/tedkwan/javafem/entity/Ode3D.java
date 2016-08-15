@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Ode3D.findByC", query = "SELECT o FROM Ode3D o WHERE o.c = :c"),
     @NamedQuery(name = "Ode3D.findByX0", query = "SELECT o FROM Ode3D o WHERE o.x0 = :x0"),
     @NamedQuery(name = "Ode3D.findByY0", query = "SELECT o FROM Ode3D o WHERE o.y0 = :y0"),
-    @NamedQuery(name = "Ode3D.findByZ0", query = "SELECT o FROM Ode3D o WHERE o.z0 = :z0")})
+    @NamedQuery(name = "Ode3D.findByZ0", query = "SELECT o FROM Ode3D o WHERE o.z0 = :z0"),
+    @NamedQuery(name = "Ode3D.findByEquation", query = "SELECT o FROM Ode3D o WHERE o.equation = :equation")})
 public class Ode3D implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -69,6 +70,11 @@ public class Ode3D implements Serializable {
     @NotNull
     @Column(name = "z0")
     private BigDecimal z0;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 700)
+    @Column(name = "equation")
+    private String equation;
 
     public Ode3D() {
     }
@@ -77,12 +83,13 @@ public class Ode3D implements Serializable {
         this.id = id;
     }
 
-    public Ode3D(Integer id, String name, BigDecimal x0, BigDecimal y0, BigDecimal z0) {
+    public Ode3D(Integer id, String name, BigDecimal x0, BigDecimal y0, BigDecimal z0, String equation) {
         this.id = id;
         this.name = name;
         this.x0 = x0;
         this.y0 = y0;
         this.z0 = z0;
+        this.equation = equation;
     }
 
     public Integer getId() {
@@ -147,6 +154,14 @@ public class Ode3D implements Serializable {
 
     public void setZ0(BigDecimal z0) {
         this.z0 = z0;
+    }
+
+    public String getEquation() {
+        return equation;
+    }
+
+    public void setEquation(String equation) {
+        this.equation = equation;
     }
 
     @Override

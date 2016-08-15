@@ -11,48 +11,52 @@
 
     <ui:define name="content">
         <header>
-            <h2>Plot Phase Plane in 2-D</h2>
+            <h2>Plot Phase Plane in 3-D</h2>
             <span class="byline">Written and developed by Ted Kwan</span>
         </header>
         <p>Please select a function from the table below to plot, then click the Refresh Plot button to re-run the numerical simulation with random initial conditions.</p>
-        <p:commandButton id="refreshImageButton" value="Refresh Plot" action="#{phase2SelectionBean.makeDuffing()}" update="thePlot">
-            </p:commandButton>
-                    <p:panel id="thePlot">
-                <script language="JavaScript" type="text/javascript">
+        <p:commandButton id="refreshImageButton" value="Refresh Plot" action="#{phase3SelectionBean.makePhase3()}" update="thePlot">
+        </p:commandButton>
+        <p:panel id="thePlot">
+            <script language="JavaScript" type="text/javascript">
                 TESTER = document.getElementById('thePlot');
-                        var a = <h:outputText value="#{phase2SelectionBean.xarpp}"/>
-                        var b = <h:outputText value="#{phase2SelectionBean.yarpp}"/>
+                        var a = <h:outputText value="#{phase3SelectionBean.xarpp}"/>
+                        var b = <h:outputText value="#{phase3SelectionBean.yarpp}"/>
+                        var c = <h:outputText value="#{phase3SelectionBean.uarpp}"/>
                         var data = [
-                            {
-                                opacity: 0.8,
-                                type: 'scatter',
-				mode: 'lines',
+                        {
+                        opacity: 0.8,
+                                type: 'scatter3d',
+                                mode: 'lines',
                                 x: a,
-                                y: b
-                            }
+                                y: b,
+                                z: c,
+                                line: {
+                                width: 6},
+                        }
                         ];
-                var layout = {
-                    autosize: false,
-                    width: 850,
-                    height: 500,
-                    margin: {
-                        l: 50,
-                        r: 50,
-                        b: 100,
-                        t: 100,
-                        pad: 4
-                    }
-                };
+                        var layout = {
+                            autosize: false,
+                            width: 850,
+                            height: 500,
+                            margin: {
+                                l: 50,
+                                r: 50,
+                                b: 100,
+                                t: 100,
+                                pad: 4
+                            }
+                        };
                 Plotly.newPlot('thePlot', data, layout);
-                </script>
-                </p:panel>
+            </script>
+        </p:panel>
         <h:form>
             <p:panel header="Selection">
-                <p:dataTable id="plotData" value="#{phase2SelectionBean.odelist}" selectionMode="single" selection="#{phase2SelectionBean.odefun}" var="item" rowKey="#{item.name}">
+                <p:dataTable id="plotData" value="#{phase3SelectionBean.odelist}" selectionMode="single" selection="#{phase3SelectionBean.odefun}" var="item" rowKey="#{item.name}">
                     <f:facet name="header">
                         Different ODEs
                     </f:facet>
-                    <p:column headerText="ODE" width="20%">
+                    <p:column headerText="PDE" width="20%">
                         <h:outputText value="#{item.name}"/>
                     </p:column>
                     <p:column headerText="a" width="10%">
@@ -63,9 +67,6 @@
                     </p:column>
                     <p:column headerText="c" width="10%">
                         <h:outputText value="#{item.c}"/>
-                    </p:column>
-                    <p:column headerText="d" width="10%">
-                        <h:outputText value="#{item.d}"/>
                     </p:column>
                     <p:column headerText="Equation:">
                         <div align="left"> <h:outputText value="#{item.equation}" escape="false"/></div>

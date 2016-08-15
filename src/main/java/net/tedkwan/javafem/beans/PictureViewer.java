@@ -1,25 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package net.tedkwan.javafem.beans;
 
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 /**
+ * Managed Bean for the picture gallery.
  *
- * @author Devils
+ *
+ * This managed bean is the bean which creates a list of photos so
+ * that the pictures can be viewed in JSF.
+ *
+ * @author Ted Kwan
  */
-
- 
-@Named(value = "pictureViewer")
-@SessionScoped
+@ManagedBean(name = "pictureViewer")
+@ViewScoped
 public class PictureViewer implements Serializable {
 
     /**
@@ -28,6 +27,7 @@ public class PictureViewer implements Serializable {
     public PictureViewer() {
     }
         private List<String> images;
+        
     /**
      * Initializes the picture viewer by loading the pictures
      * that are going to be displayed.
